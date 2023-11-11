@@ -1,0 +1,38 @@
+#Pulling information from a "Netflix" database
+
+Select * From "netflix_people" Limit 5
+
+Select * From "netflix_titles_info" limit 5
+
+Select people.show_id,people.director, titles.title, titles.type
+From "netflix_people" people
+Left Join "netflix_titles_info" titles
+On people.show_id = titles.show_id
+
+#How many movie titles?
+SELECT count(*)
+FROM "netflix_titles_info"
+WHERE type='Movie';
+
+#Most recent batch of shows/movies?
+select max(date(date_added))
+FROM "netflix_titles_info";
+
+#Alphabetical order of shows/movies
+Select title
+From "netflix_titles_info" 
+Order by title asc 
+
+#Director of specific movie "The Starling"
+Select director
+FROM "netflix_titles_info" titles
+LEFT JOIN "netflix_people" people
+ON titles.show_id=people.show_id
+WHERE titles.title='The Starling'
+
+#Oldes movie in database.
+SELECT title, release_year
+FROM "netflix_titles_info"
+WHERE type='Movie'
+ORDER BY release_year asc
+LIMIT 1;

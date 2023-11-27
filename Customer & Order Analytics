@@ -52,3 +52,11 @@ Select product,Sum(quantity)
 From Bit_DB.FebSales
 Where location like '%Los Angeles%'
 Group by product 
+
+#Which New York location recieved at least 3 orders in Janurary. 
+Select distinct location,count(quantity) as orders
+From JanSales 
+Where Location like '%New York%'
+group by location
+Having count(Quantity) >=3;
+

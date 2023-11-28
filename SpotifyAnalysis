@@ -54,9 +54,22 @@ From Bit_DB.spotifydata
 Where Popularity >= 85
 Order by Popularity Desc
 
-Lastly I compared the popularity, loudness, speechiness, energy and danceability for the top 3 songs
+#I compared the popularity, loudness, speechiness, energy and danceability for the top 3 songs
 Select Track_name, artist_name, popularity,
 loudness, speechiness, energy, danceability
 From Bit_DB.spotifydata
 Where popularity >=95
 Order by Popularity Desc
+
+# Lastly I used CTE to discover the stars who scored >=90 and added the tag "Top Star" for future reference.
+#Prefer CTE for multiple aggregations, readability, and referencing results numerous times.
+WITH popularity_average_CTE AS (
+SELECT s.artist_name,
+AVG(s.popularity) AS average_popularity
+FROM SpotifyData s 
+GROUP BY s.artist_name)
+ 
+SELECT  artist_name, average_popularity,
+'Top Star' AS tag
+FROM popularity_average_CTE
+WHERE average_popularity>=90;
